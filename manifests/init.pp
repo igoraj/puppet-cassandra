@@ -4,6 +4,7 @@ class cassandra(
     $service_name                           = $cassandra::params::service_name,
     $config_path                            = $cassandra::params::config_path,
     $include_repo                           = $cassandra::params::include_repo,
+    $manage_user                            = $cassandra::params::manage_user,
     $repo_name                              = $cassandra::params::repo_name,
     $repo_baseurl                           = $cassandra::params::repo_baseurl,
     $repo_gpgkey                            = $cassandra::params::repo_gpgkey,
@@ -68,6 +69,7 @@ class cassandra(
 ) inherits cassandra::params {
     # Validate input parameters
     validate_bool($include_repo)
+    validate_bool($manage_user)
     validate_absolute_path($commitlog_directory)
     validate_absolute_path($saved_caches_directory)
 
@@ -188,6 +190,7 @@ class cassandra(
     class { 'cassandra::config':
         version                               => $version_config,
         config_path                           => $config_path,
+        manage_user                           => $manage_user,
         max_heap_size                         => $max_heap_size,
         heap_newsize                          => $heap_newsize,
         jmx_port                              => $jmx_port,

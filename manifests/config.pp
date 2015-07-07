@@ -1,6 +1,7 @@
 class cassandra::config(
     $version,
     $config_path,
+    $manage_user,
     $max_heap_size,
     $heap_newsize,
     $jmx_port,
@@ -51,14 +52,17 @@ class cassandra::config(
     $client_encryption_truststore_password,
     $client_encryption_cipher_suites,
 ) {
-    group { 'cassandra':
-        ensure  => present,
-        require => Class['Cassandra::Install'],
-    }
 
-    user { 'cassandra':
-        ensure  => present,
-        require => Group['cassandra'],
+    if $manage_user {
+        group { 'cassandra':
+            ensure  => present,
+            require => Class['Cassandra::Install'],
+        }
+
+        user { 'cassandra':
+            ensure  => present,
+            require => Group['cassandra'],
+        }
     }
 
     File {

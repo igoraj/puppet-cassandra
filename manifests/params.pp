@@ -98,6 +98,11 @@ class cassandra::params {
         }
     }
 
+    $manage_user = $::cassandra_manage_user ? {
+        undef   => true,
+        default => $::cassandra_manage_user,
+    }
+
     $version = $::cassandra_version ? {
         undef   => '2.1.2',
         default => $::cassandra_version,
