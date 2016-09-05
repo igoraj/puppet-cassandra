@@ -8,13 +8,17 @@ class cassandra::repo::debian(
     $pin,
 ) {
     apt::source { $repo_name:
-        location    => $location,
-        release     => $release,
-        repos       => $repos,
-        key         => $key,
-        key_source  => $key_source,
-        pin         => $pin,
-        include_src => false,
+        location => $location,
+        release  => $release,
+        repos    => $repos,
+        key      => {
+          id     => $key,
+          source => $key_source,
+        },
+        pin      => $pin,
+        include  => {
+          src    => false
+        },
     }
 
     # pin the package
