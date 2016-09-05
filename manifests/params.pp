@@ -34,7 +34,7 @@ class cassandra::params {
 
     $repo_key_id = $::cassandra_repo_key_id ? {
         undef   => $::osfamily ? {
-            'Debian' => 'B999A372',
+            'Debian' => '7E41C00F85BFC1706C4FFFB3350200F2B999A372',
             default  => undef,
         },
         default => $::cassandra_repo_key_id
